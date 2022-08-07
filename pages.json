@@ -1,0 +1,19 @@
+{
+	"pages": [
+	    {
+            "path" : "pages/home",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "Just For You",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}
