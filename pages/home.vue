@@ -5,8 +5,7 @@
 			<view class="title-content"><jyf-parser :html="content"></jyf-parser></view>
 		</view>
 
-		<view class="clock-container"><canvas type="2d" id="clock" style="width: 360rpx; height: 360rpx;"></canvas></view>
-		<!-- <button :class="'button-check ' + buttonClass" @tap="check">{{ checkContent }}</button> -->
+		<view class="clock-container"><clock></clock></view>
 
 		<button class="button-next" @tap="getLoveContent">换句情话听听</button>
 
@@ -19,37 +18,21 @@
 <script>
 import Http from '../utils/http.js';
 import jyfParser from '../components/jyf-parser/jyf-parser.vue';
+import clock from '../components/clock.vue';
 
 export default {
-	components: { jyfParser },
+	components: { jyfParser, clock },
 	data() {
 		return {
-			checkContent: '打卡',
 			content: '记录我们在一起的每一秒！',
 			startTime: '2022/08/04',
 			days: 99
 		};
 	},
 	async onLoad() {
-		// this.getLoveContent();
-		// this.content = await Http.get('words/api.php');
 		this.days = this.getLeftDays(new Date(this.startTime), new Date());
 	},
-	onReady() {
-		this.drawClock();
-	},
-	computed: {
-		buttonClass() {
-			if (this.checkContent === '加油') {
-				return 'button-check-rotate-X';
-			}
-			return '';
-		}
-	},
 	methods: {
-		check() {
-			this.checkContent = this.checkContent === '打卡' ? '加油' : this.checkContent === '加油' ? 'fighting' : '加油';
-		},
 		async getLoveContent() {
 			this.content = await Http.get('words/api.php');
 		},
@@ -57,124 +40,7 @@ export default {
 			const leftTime = new Date(endTime) - new Date(startTime);
 			return parseInt(leftTime / 1000 / 60 / 60 / 24, 10);
 		},
-		handleContact() {},
-		drawClock() {
-			const query = wx.createSelectorQuery();
-			query
-				.select('#clock')
-				.fields({ node: true, size: true })
-				.exec(res => {
-					const canvas = res[0].node;
-					const ctx = canvas.getContext('2d');
-
-					const dpr = wx.getSystemInfoSync().pixelRatio;
-					canvas.width = res[0].width * dpr;
-					canvas.height = res[0].height * dpr;
-					ctx.scale(dpr, dpr);
-
-					const canvasWidth = res[0].width;
-					const canvasHeight = res[0].height;
-
-					setInterval(() => {
-						ctx.save();
-						ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-
-						ctx.translate(canvasWidth / 2, canvasHeight / 2);
-						ctx.save();
-
-						// 画表盘
-						ctx.beginPath();
-						ctx.arc(0, 0, canvasWidth / 2 - 14, 0, 2 * Math.PI);
-						ctx.fillStyle = '#ffffff';
-						ctx.fill();
-						ctx.stroke();
-						ctx.closePath();
-
-						// // 画中心点
-						// ctx.beginPath();
-						// ctx.arc(0, 0, 2, 0, 2 * Math.PI);
-						// ctx.stroke();
-						// ctx.closePath();
-
-						let time = new Date();
-						const hour = time.getHours() % 12;
-						const minute = time.getMinutes();
-						const second = time.getSeconds();
-
-						// 画时针
-						// 以12点为起始点，坐标轴需要逆时针转90度，即需要减去90°
-						ctx.rotate(((2 * Math.PI) / 12) * hour + ((2 * Math.PI) / 12) * (minute / 60) - Math.PI / 2);
-						ctx.beginPath();
-						ctx.moveTo(-2, 0);
-						ctx.lineTo(canvasWidth / 2 - 50, 0);
-						ctx.lineWidth = 6;
-						ctx.stroke();
-						ctx.closePath();
-
-						ctx.restore();
-						ctx.save();
-
-						// 画分针
-						// 以12点为起始点，坐标轴需要逆时针转90度，即需要减去90°
-						ctx.rotate(((2 * Math.PI) / 60) * minute + ((2 * Math.PI) / 60) * (second / 60) - Math.PI / 2);
-						ctx.beginPath();
-						ctx.moveTo(-4, 0);
-						ctx.lineTo(canvasWidth / 2 - 40, 0);
-						ctx.lineWidth = 3;
-						ctx.strokeStyle = '#008000';
-						ctx.stroke();
-						ctx.closePath();
-
-						ctx.restore();
-						ctx.save();
-
-						// 画秒针
-						// 以12点为起始点，坐标轴需要逆时针转90度，即需要减去90°
-						ctx.rotate(((2 * Math.PI) / 60) * second - Math.PI / 2);
-						ctx.beginPath();
-						ctx.moveTo(-10, 0);
-						ctx.lineTo(canvasWidth / 2 - 30, 0);
-						ctx.lineWidth = 2;
-						ctx.strokeStyle = 'red';
-						ctx.stroke();
-						ctx.closePath();
-
-						ctx.restore();
-						ctx.save();
-
-						ctx.lineWidth = 1;
-						// 画刻度盘
-						for (let i = 0; i < 60; i++) {
-							ctx.rotate((2 * Math.PI) / 60);
-							ctx.beginPath();
-							ctx.moveTo(canvasWidth / 2 - 18, 0);
-							ctx.lineTo(canvasWidth / 2 - 14, 0);
-							ctx.stroke();
-							ctx.closePath();
-						}
-
-						ctx.lineWidth = 2;
-						for (let i = 0; i < 12; i++) {
-							ctx.rotate((2 * Math.PI) / 12);
-							ctx.beginPath();
-							ctx.moveTo(canvasWidth / 2 - 24, 0);
-							ctx.lineTo(canvasWidth / 2 - 14, 0);
-							ctx.stroke();
-							ctx.closePath();
-
-							ctx.fillStyle = 'black';
-							ctx.font = '12px blod arial';
-							if (i > 8) {
-								ctx.fillText(i + 1, -5, -(canvasWidth / 2 - 10));
-							} else {
-								ctx.fillText(i + 1, -2, -(canvasWidth / 2 - 10));
-							}
-						}
-						ctx.restore();
-						ctx.restore();
-					}, 1000);
-				});
-		}
+		handleContact() {}
 	}
 };
 </script>
@@ -182,7 +48,7 @@ export default {
 <style>
 .page {
 	height: 100%;
-	background-color: #fffbe5;
+	background-color: pink;
 	/* background-image: linear-gradient(to bottom,  pink, #ffe15d); */
 }
 
@@ -201,7 +67,7 @@ export default {
 	justify-content: center;
 	width: 100%;
 	height: 375rpx;
-	background-image: url('../static/time_bg.png');
+	background-image: url(../static/header_bg.png);
 	background-size: contain;
 }
 
@@ -210,7 +76,7 @@ export default {
 	text-align: center;
 	font-family: 'Microsoft YaHei';
 	font-size: 20px;
-	color: #ffffff;
+	color: red;
 }
 
 .title-content {
@@ -219,7 +85,7 @@ export default {
 	text-align: center;
 	font-family: 'Microsoft YaHei';
 	font-size: 14px;
-	color: #ffffff;
+	color: red;
 }
 
 .button-check {
@@ -252,12 +118,15 @@ export default {
 }
 
 .button-next {
-	margin-top: 30rpx;
 	width: 260rpx;
 	font-size: 16px;
 	border-radius: 20px;
 	color: #ffffff;
-	background-color: pink;
+	background-color: #ebb7ce;
+	border-color: #ebb7ce;
+}
+
+button::after {
 	border: none;
 }
 
@@ -272,10 +141,9 @@ export default {
 }
 
 .button-contact {
-	float: right;
 	width: 200rpx;
 	height: 300rpx;
-	margin: 0;
+	margin: 10rpx auto;
 	padding: 0;
 }
 
