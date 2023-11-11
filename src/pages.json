@@ -1,0 +1,21 @@
+{
+	"pages": [{
+		"path": "pages/home",
+		"style": {
+			"enablePullDownRefresh": false,
+			"navigationStyle": "custom"
+		}
+	},
+	{
+		"path": "pages/memory",
+		"style": {
+			"navigationBarTitleText": "曾经的回忆"
+		}
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}
