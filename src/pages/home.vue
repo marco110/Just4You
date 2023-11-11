@@ -5,8 +5,8 @@
     >
 
     <view class="header">
-      <!-- <view class="title-countdown">与小孙相识第 {{ days }} 天，相恋第{{ loveDay }}天</view> -->
-      <view class="title-countdown">爱意随风起，爱已随风去...</view>
+      <view class="title-countdown">与小孙相识第 {{ days }} 天，相恋第{{ loveDay }}天</view>
+      <!-- <view class="title-countdown">爱意随风起，爱已随风去...</view> -->
       <view class="title-content"
         ><jyf-parser :html="content"></jyf-parser
       ></view>
@@ -30,7 +30,7 @@
         class="button-next"
         @tap="showPasswordBox"
       >
-        查看失败的回忆
+        查看我们的美好
       </button></view
     >
     <box
@@ -63,7 +63,7 @@ export default {
   components: { jyfParser, clock, mypOneInput, box },
   data() {
     return {
-      content: "别看了，她可能不喜欢你。",
+      content: "小孙要天天开心！！！",
       startTime: "2023/08/12",
       startLoveTime: "2023/10/15",
       days: 99, // 相识
