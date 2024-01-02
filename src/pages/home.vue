@@ -5,7 +5,9 @@
     >
 
     <view class="header">
-      <view class="title-countdown">与小孙相识第 {{ days }} 天，相恋第{{ loveDay }}天</view>
+      <view class="title-countdown"
+        >与小孙相识第{{ days }}天，相恋第{{ loveDay }}天</view
+      >
       <!-- <view class="title-countdown">爱意随风起，爱已随风去...</view> -->
       <view class="title-content"
         ><jyf-parser :html="content"></jyf-parser
@@ -53,17 +55,19 @@
 </template>
 
 <script>
+import config from '../config/index.js';
 import Http from "../utils/http.js";
 import jyfParser from "../components/jyf-parser/jyf-parser.vue";
 import clock from "../components/clock.vue";
 import mypOneInput from "../components/myp-one.vue";
 import box from "../components/d-tan.vue";
+const baseUrl = config.loveliveServerHost;
 
 export default {
   components: { jyfParser, clock, mypOneInput, box },
   data() {
     return {
-      content: "小孙要天天开心！！！",
+      content: "小孙，答应我，永不分开！",
       startTime: "2023/08/12",
       startLoveTime: "2023/10/15",
       days: 99, // 相识
@@ -88,7 +92,7 @@ export default {
   },
   methods: {
     async getLoveContent() {
-      this.content = await Http.get("words/api.php");
+      this.content = await Http.get(baseUrl + "words/api.php");
     },
     getLeftDays(startTime, endTime) {
       const leftTime = new Date(endTime) - new Date(startTime);
@@ -124,14 +128,14 @@ export default {
 <style>
 .page {
   height: 100%;
-  background-color: pink;
+  background-color: #e8d5f8;
   /* background-image: linear-gradient(to bottom,  pink, #ffe15d); */
 }
 
 .home-title {
   width: 100%;
   padding-bottom: 20rpx;
-  background-color: pink;
+  background-color: #e8d5f8;
   text-align: center;
   color: red;
   font-family: PingFangSC-Semibold, PingFang SC;
@@ -162,7 +166,7 @@ export default {
   width: 70%;
   text-align: center;
   font-family: "Microsoft YaHei";
-  font-size: 18px;
+  font-size: 16px;
   color: red;
 }
 
