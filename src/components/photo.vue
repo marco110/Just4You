@@ -3,30 +3,30 @@
 </template>
 
 <script>
-import Http from "../utils/http.js";
+import Http from '../utils/http.js';
 
 export default {
   props: {
     url: {
-      type: String,
-    },
+      type: String
+    }
   },
   data() {
     return {
-      show: false,
+      show: false
     };
   },
-  async created() {
-    try {
-      const data = await Http.get(this.url);
-      this.show = true;
-    } catch (error) {
-      this.show = false;
-    }
-  },
+  created() {
+    Http.requestImage('get', this.url)
+      .then(() => {
+        this.show = true;
+      })
+      .catch(() => {
+        this.show = false;
+      });
+  }
 };
 </script>
-
 
 <style>
 .img {

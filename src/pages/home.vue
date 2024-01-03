@@ -14,27 +14,21 @@
       ></view>
     </view>
 
-    <view class="clock-container"><clock></clock></view>
+    <view class="button-container">
+      <button class="button-next" @tap="getLoveContent">换句情话</button>
+      <button class="button-next" @tap="showPasswordBox">美好回忆</button>
+    </view>
 
-    <button class="button-next" @tap="getLoveContent">换句情话听听</button>
+    <view class="clock-container"><clock></clock></view>
 
     <button
       class="button-contact"
       open-type="contact"
       bindcontact="handleContact"
     >
-      <image class="img-dog" src="../static/cat.gif"></image>
+      <image class="img-dog" src="../static/cat-flower.png"></image>
     </button>
 
-    <view
-      ><button
-        style="margin-top: 60rpx"
-        class="button-next"
-        @tap="showPasswordBox"
-      >
-        查看我们的美好
-      </button></view
-    >
     <box
       :value="showBox"
       :is_scroll="false"
@@ -56,25 +50,25 @@
 
 <script>
 import config from '../config/index.js';
-import Http from "../utils/http.js";
-import jyfParser from "../components/jyf-parser/jyf-parser.vue";
-import clock from "../components/clock.vue";
-import mypOneInput from "../components/myp-one.vue";
-import box from "../components/d-tan.vue";
+import Http from '../utils/http.js';
+import jyfParser from '../components/jyf-parser/jyf-parser.vue';
+import clock from '../components/clock.vue';
+import mypOneInput from '../components/myp-one.vue';
+import box from '../components/d-tan.vue';
 const baseUrl = config.loveliveServerHost;
 
 export default {
   components: { jyfParser, clock, mypOneInput, box },
   data() {
     return {
-      content: "小孙，答应我，永不分开！",
-      startTime: "2023/08/12",
-      startLoveTime: "2023/10/15",
+      content: '小孙，答应我，永不分开！',
+      startTime: '2023/08/12',
+      startLoveTime: '2023/10/15',
       days: 99, // 相识
       loveDay: 99, // 相恋
       titleTop: 0,
       showBox: false,
-      password: "",
+      password: ''
     };
   },
   async onLoad() {
@@ -83,7 +77,7 @@ export default {
       success: (res) => {
         let { top, height } = uni.getMenuButtonBoundingClientRect();
         this.titleTop = top;
-      },
+      }
     });
 
     this.days = this.getLeftDays(new Date(this.startTime), new Date()) + 1;
@@ -92,7 +86,7 @@ export default {
   },
   methods: {
     async getLoveContent() {
-      this.content = await Http.get(baseUrl + "words/api.php");
+      this.content = await Http.get(baseUrl + 'words/api.php');
     },
     getLeftDays(startTime, endTime) {
       const leftTime = new Date(endTime) - new Date(startTime);
@@ -107,21 +101,21 @@ export default {
     },
     onPWChange(value) {
       this.password = value;
-      if (value == "1007") {
-        this.password = "";
+      if (value == '1007') {
+        this.password = '';
         this.showBox = false;
 
         uni.navigateTo({
-          url: "./memory",
+          url: './memory'
         });
       } else if (value.length === 4) {
         setTimeout(() => {
-          this.password = "";
+          this.password = '';
         }, 1000);
-        uni.showToast({ title: "密码错误", icon: "error" });
+        uni.showToast({ title: '密码错误', icon: 'error' });
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -165,7 +159,7 @@ export default {
 .title-countdown {
   width: 70%;
   text-align: center;
-  font-family: "Microsoft YaHei";
+  font-family: 'Microsoft YaHei';
   font-size: 16px;
   color: red;
 }
@@ -174,7 +168,7 @@ export default {
   margin-top: 30rpx;
   width: 50%;
   text-align: center;
-  font-family: "Microsoft YaHei";
+  font-family: 'Microsoft YaHei';
   font-size: 14px;
   color: red;
 }
@@ -208,6 +202,13 @@ export default {
   font-weight: 600;
 }
 
+.button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30rpx;
+}
+
 .button-next {
   width: 300rpx;
   font-size: 16px;
@@ -232,14 +233,14 @@ button::after {
 }
 
 .button-contact {
-  width: 200rpx;
+  width: 250rpx;
   height: 250rpx;
   margin: 10rpx auto;
   padding: 0;
 }
 
 .img-dog {
-  width: 200rpx;
+  width: 250rpx;
   height: 250rpx;
 }
 </style>
