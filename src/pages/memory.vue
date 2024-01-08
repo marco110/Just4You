@@ -42,7 +42,7 @@ export default {
   display: flex;
   flex-direction: column;
   height: 100%;
-  background-color: #e8d5f8;
+  background-color: #c8c1ff;
   /* background-image: linear-gradient(to bottom,  pink, #ffe15d); */
 }
 

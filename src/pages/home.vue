@@ -61,7 +61,7 @@ export default {
   components: { jyfParser, clock, mypOneInput, box },
   data() {
     return {
-      content: '小孙，答应我，永不分开！',
+      content: '希望我们永不分开，共创未来！',
       startTime: '2023/08/12',
       startLoveTime: '2023/10/15',
       days: 99, // 相识
@@ -122,14 +122,14 @@ export default {
 <style>
 .page {
   height: 100%;
-  background-color: #e8d5f8;
+  background-color: #c8c1ff;
   /* background-image: linear-gradient(to bottom,  pink, #ffe15d); */
 }
 
 .home-title {
   width: 100%;
   padding-bottom: 20rpx;
-  background-color: #e8d5f8;
+  background-color: #c8c1ff;
   text-align: center;
   color: red;
   font-family: PingFangSC-Semibold, PingFang SC;
