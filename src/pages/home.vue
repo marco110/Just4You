@@ -213,9 +213,8 @@ export default {
   width: 300rpx;
   font-size: 16px;
   border-radius: 20px;
-  color: #ffffff;
+  color: cornsilk;
   background-color: #ebb7ce;
-  border-color: #ebb7ce;
 }
 
 button::after {
@@ -229,7 +228,6 @@ button::after {
   width: 150rpx;
   height: 200rpx;
   background-color: transparent;
-  border: none;
 }
 
 .button-contact {

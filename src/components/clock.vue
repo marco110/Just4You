@@ -40,7 +40,8 @@ export default {
 						// 画表盘
 						ctx.beginPath();
 						ctx.arc(0, 0, canvasWidth / 2 - 14, 0, 2 * Math.PI);
-						ctx.fillStyle = '#ffffff';
+						ctx.strokeStyle = 'white';
+						ctx.fillStyle = 'pink';
 						ctx.fill();
 						ctx.stroke();
 						ctx.closePath();
@@ -106,6 +107,7 @@ export default {
 							ctx.beginPath();
 							ctx.moveTo(canvasWidth / 2 - 18, 0);
 							ctx.lineTo(canvasWidth / 2 - 14, 0);
+							ctx.strokeStyle = 'white';
 							ctx.stroke();
 							ctx.closePath();
 						}
@@ -119,7 +121,7 @@ export default {
 							ctx.stroke();
 							ctx.closePath();
 
-							ctx.fillStyle = 'black';
+							ctx.fillStyle = 'white';
 							ctx.font = '12px blod arial';
 							if (i > 8) {
 								ctx.fillText(i + 1, -5, -(canvasWidth / 2 - 10));
