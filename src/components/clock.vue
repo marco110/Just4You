@@ -1,5 +1,5 @@
 <template>
-	<view style="width: 360rpx; height: 360rpx;"><canvas type="2d" id="clock" style="width: 360rpx; height: 360rpx;"></canvas></view>
+	<view style="width: 330rpx; height: 330rpx;"><canvas type="2d" id="clock" style="width: 330rpx; height: 330rpx;"></canvas></view>
 </template>
 
 <script>
