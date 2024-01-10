@@ -31,7 +31,7 @@
     </view>
 
     <view class="clock-container">
-      <text>记录每一秒钟</text>
+      <text>记录相恋的每一秒钟</text>
       <clock></clock>
     </view>
 
@@ -127,6 +127,18 @@ export default {
     setInterval(() => {
       this.getTimes();
     }, 1000);
+
+    Http.get('https://marcoma.oss-cn-beijing.aliyuncs.com/data/data.json').then(
+      (res) => {
+        console.log(res);
+      }
+    );
+  },
+  onShareAppMessage() {
+    return {
+      title: '欢迎查看看我们的恋爱时光，祝福我们吧！',
+      path: '/pages/index'
+    };
   },
   methods: {
     async getLoveContent() {
@@ -193,6 +205,7 @@ export default {
 
 <style>
 .page {
+  min-height: 100%;
   background-image: url('../static/bg.jpg');
   background-size: cover;
 }
@@ -235,17 +248,18 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #ffffff;
+  background: linear-gradient(135deg, #3393ff, #cba5f6);
   width: 60px;
   height: 60px;
   border-radius: 50%;
 }
 .imag-avatar:nth-child(2) {
   margin-left: -40rpx;
+  background: linear-gradient(225deg, #3393ff, #cba5f6);
 }
 
 .imag-avatar span {
-  color: #f275c6;
+  color: #ffffff;
   font-size: 24px;
   font-weight: 600;
 }
@@ -305,7 +319,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: rgba(255, 255, 255, 0.7);
+  color: #ffffff;
   font-size: 16px;
 }
 
@@ -315,7 +329,7 @@ export default {
 
 .diary-container {
   position: relative;
-  top: -160rpx;
+  top: -200rpx;
   left: 20rpx;
   display: flex;
   justify-content: center;
@@ -323,7 +337,7 @@ export default {
   border-radius: 15px;
   width: 250rpx;
   height: 120rpx;
-  background-color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 .diary-container-text {
